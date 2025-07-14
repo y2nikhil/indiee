@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Details | ExamPrep</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <span>ExamPrep</span>
+            </div>
+            <button class="back-btn" onclick="window.history.back()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </div>
+    </header>
+
+    <main class="exam-details-container">
+        <div class="exam-header" id="examHeader">
+            <h1 id="examTitle">Exam Title</h1>
+            <div class="exam-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span id="examDate">--</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-hourglass-end"></i>
+                    <span id="daysLeft">-- days left</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="exam-tabs">
+            <button class="tab-btn active" data-tab="overview">Overview</button>
+            <button class="tab-btn" data-tab="syllabus">Syllabus</button>
+            <button class="tab-btn" data-tab="preparation">Preparation</button>
+            <button class="tab-btn" data-tab="resources">Resources</button>
+        </div>
+
+        <div class="tab-content active" id="overview">
+            <h2>About the Exam</h2>
+            <p id="examDescription">Loading exam details...</p>
+            
+            <div class="key-details">
+                <h3>Key Details</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-file-signature"></i>
+                        <div>
+                            <h4>Application Deadline</h4>
+                            <p id="examDeadline">--</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div>
+                            <h4>Application Fee</h4>
+                            <p id="examFee">--</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <h4>Eligibility</h4>
+                            <p id="examEligibility">--</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-layer-group"></i>
+                        <div>
+                            <h4>Exam Stages</h4>
+                            <p id="examStages">--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="syllabus">
+            <h2>Exam Syllabus</h2>
+            <div class="syllabus-sections" id="syllabusSections">
+                <!-- Generated via JavaScript -->
+            </div>
+        </div>
+
+        <div class="tab-content" id="preparation">
+            <h2>Preparation Strategy</h2>
+            <div class="preparation-steps" id="preparationSteps">
+                <!-- Generated via JavaScript -->
+            </div>
+            
+            <div class="study-plan">
+                <h3>Suggested Study Plan</h3>
+                <div class="plan-grid" id="studyPlan">
+                    <!-- Generated via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="resources">
+            <h2>Recommended Resources</h2>
+            <div class="resource-categories">
+                <div class="resource-category">
+                    <h3>Books</h3>
+                    <ul class="resource-list" id="bookResources">
+                        <!-- Generated via JavaScript -->
+                    </ul>
+                </div>
+                <div class="resource-category">
+                    <h3>Online Courses</h3>
+                    <ul class="resource-list" id="courseResources">
+                        <!-- Generated via JavaScript -->
+                    </ul>
+                </div>
+                <div class="resource-category">
+                    <h3>Practice Platforms</h3>
+                    <ul class="resource-list" id="practiceResources">
+                        <!-- Generated via JavaScript -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn primary-btn" id="setTargetBtn">
+                <i class="fas fa-bullseye"></i> Set as Target Exam
+            </button>
+            <button class="action-btn secondary-btn" id="mockTestBtn">
+                <i class="fas fa-file-alt"></i> Take Mock Test
+            </button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Get exam ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const examId = urlParams.get('id');
+        
+        // Exam data (would normally come from an API)
+        const examDatabase = {
+            'ssc-cgl-2023': {
+                title: 'SSC CGL 2023',
+                date: 'November 15, 2023',
+                deadline: 'September 30, 2023',
+                description: 'The Staff Selection Commission Combined Graduate Level Examination (SSC CGL) is conducted for recruiting staff to various posts in ministries, departments and organizations of the Government of India.',
+                fee: '₹100 (General), ₹0 (SC/ST)',
+                eligibility: 'Bachelor\'s degree from recognized university',
+                stages: 'Tier-I (Prelims), Tier-II (Mains), Tier-III (Descriptive), Tier-IV (Skill Test)',
+                syllabus: {
+                    'Tier-I': [
+                        'General Intelligence & Reasoning (25 questions)',
+                        'General Awareness (25 questions)',
+                        'Quantitative Aptitude (25 questions)',
+                        'English Comprehension (25 questions)'
+                    ],
+                    'Tier-II': [
+                        'Paper-I: Quantitative Abilities (100 questions)',
+                        'Paper-II: English Language & Comprehension (200 questions)',
+                        'Paper-III: Statistics (100 questions)',
+                        'Paper-IV: General Studies (100 questions)'
+                    ]
+                },
+                preparation: [
+                    'Understand the exam pattern and syllabus thoroughly',
+                    'Create a realistic study schedule covering all topics',
+                    'Focus on speed and accuracy in quantitative aptitude',
+                    'Practice previous year question papers',
+                    'Take regular mock tests to assess preparation'
+                ],
+                studyPlan: [
+                    { week: '1-2', focus: 'Quantitative Aptitude Basics' },
+                    { week: '3-4', focus: 'English Grammar & Vocabulary' },
+                    { week: '5-6', focus: 'General Awareness Current Affairs' },
+                    { week: '7-8', focus: 'Reasoning Practice' },
+                    { week: '9+', focus: 'Full-length Mock Tests' }
+                ],
+                resources: {
+                    books: [
+                        'Quantitative Aptitude by R.S. Aggarwal',
+                        'Fast Track Objective Arithmetic by Rajesh Verma',
+                        'English Grammar & Composition by Wren & Martin',
+                        'Lucent\'s General Knowledge'
+                    ],
+                    courses: [
+                        'SSC CGL Complete Course - Unacademy',
+                        'Quantitative Aptitude Mastery - Gradeup',
+                        'English for Competitive Exams - BYJU\'S'
+                    ],
+                    practice: [
+                        'SSC Adda - Previous Year Papers',
+                        'Testbook - Mock Test Series',
+                        'Oliveboard - Free Practice Tests'
+                    ]
+                }
+            },
+            // Add other exams similarly
+        };
+        
+        // Load exam data
+        document.addEventListener('DOMContentLoaded', () => {
+            const exam = examDatabase[examId];
+            if (!exam) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Set basic info
+            document.getElementById('examTitle').textContent = exam.title;
+            document.getElementById('examDescription').textContent = exam.description;
+            document.getElementById('examDate').textContent = exam.date;
+            document.getElementById('examDeadline').textContent = exam.deadline;
+            document.getElementById('examFee').textContent = exam.fee;
+            document.getElementById('examEligibility').textContent = exam.eligibility;
+            document.getElementById('examStages').textContent = exam.stages;
+            
+            // Calculate days left
+            const examDate = new Date(exam.date);
+            const today = new Date();
+            const timeDiff = examDate.getTime() - today.getTime();
+            const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            document.getElementById('daysLeft').textContent = `${daysLeft} days left`;
+            
+            // Set tab functionality
+            setupTabs();
+            
+            // Load syllabus
+            loadSyllabus(exam.syllabus);
+            
+            // Load preparation
+            loadPreparation(exam.preparation, exam.studyPlan);
+            
+            // Load resources
+            loadResources(exam.resources);
+            
+            // Set button actions
+            document.getElementById('setTargetBtn').addEventListener('click', () => {
+                localStorage.setItem('targetExam', JSON.stringify({
+                    id: examId,
+                    name: exam.title,
+                    date: examDate
+                }));
+                alert(`${exam.title} set as your target exam!`);
+                window.location.href = 'index.html';
+            });
+            
+            document.getElementById('mockTestBtn').addEventListener('click', () => {
+                alert('Mock test feature coming soon!');
+            });
+        });
+        
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+        
+        function loadSyllabus(syllabus) {
+            const container = document.getElementById('syllabusSections');
+            container.innerHTML = '';
+            
+            for (const [section, topics] of Object.entries(syllabus)) {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'syllabus-section';
+                sectionDiv.innerHTML = `
+                    <h3>${section}</h3>
+                    <ul>
+                        ${topics.map(topic => `<li>${topic}</li>`).join('')}
+                    </ul>
+                `;
+                container.appendChild(sectionDiv);
+            }
+        }
+        
+        function loadPreparation(steps, plan) {
+            const stepsContainer = document.getElementById('preparationSteps');
+            stepsContainer.innerHTML = `
+                <ol>
+                    ${steps.map(step => `<li>${step}</li>`).join('')}
+                </ol>
+            `;
+            
+            const planContainer = document.getElementById('studyPlan');
+            planContainer.innerHTML = plan.map(item => `
+                <div class="plan-item">
+                    <div class="plan-week">${item.week}</div>
+                    <div class="plan-focus">${item.focus}</div>
+                </div>
+            `).join('');
+        }
+        
+        function loadResources(resources) {
+            document.getElementById('bookResources').innerHTML = 
+                resources.books.map(book => `<li>${book}</li>`).join('');
+            
+            document.getElementById('courseResources').innerHTML = 
+                resources.courses.map(course => `<li>${course}</li>`).join('');
+            
+            document.getElementById('practiceResources').innerHTML = 
+                resources.practice.map(platform => `<li>${platform}</li>`).join('');
+        }
+    </script>
+</body>
+</html>
